@@ -1,6 +1,7 @@
 #!/usr/bin/env node
 import chalk from "chalk";
 import chalkAnimation from "chalk-animation";
+import inquirer from "inquirer";
 let playerName;
 const sleep = (ms = 2000) => new Promise((r) => setTimeout(r, ms));
 async function welcome() {
@@ -8,12 +9,25 @@ async function welcome() {
     await sleep();
     welcomeTitle.stop();
     console.log(`
-    ${chalk.bgBlue("How to Play \n")}
-    Choose a option from the given options
-    If your answer is right you will be given a ${chalk.bgHex("#6461c2")("nice looking pic")},
-    which you can even set as your social media pp XD jk 🙃
+    ${chalk.bgBlue(" How to Play \n")}
+    Choose a option from the given options 🔠,
+    If your answer is right you will be given a ${chalk.bgHex("#6461c2")(" nice looking pic ")},
+    which you can even set as your social media pp XD jk 🙃,
+    dead simple right? 💀
     So ${chalk.red("Bina Kisi Bakchodi ke")} , ${chalk.green("Lets get Started")}
   `);
 }
-welcome();
+async function askName() {
+    const name = await inquirer.prompt({
+        name: "player_name",
+        type: "input",
+        message: "What is your username ?",
+        default() {
+            return "Noob-Player";
+        },
+    });
+    playerName = name.player_name;
+}
+await welcome();
+await askName();
 //# sourceMappingURL=index.js.map
