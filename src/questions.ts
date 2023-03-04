@@ -68,3 +68,10 @@ export const questionList = [
     ans: "Cypher",
   },
 ];
+
+export interface iQuestionList {
+  questionName: string;
+  questionMessage: string;
+  options: string[];
+  ans: string;
+}

@@ -6,11 +6,17 @@ import figlet from "figlet";
 import gradient from "gradient-string";
 import inquirer from "inquirer";
 import { createSpinner } from "nanospinner";
-import { questionList } from "./questions.js";
+import { questionList, iQuestionList } from "./questions.js";
 
 // console.log(questionList[0].questionMessage);
 
 let playerName;
+
+const question1 = [questionList[0], questionList[1]];
+const question2 = [questionList[2], questionList[3]];
+const question3 = [questionList[4], questionList[5]];
+const question4 = [questionList[6], questionList[7]];
+const question5 = [questionList[8], questionList[9]];
 
 const sleep = (ms = 2000) => new Promise((r) => setTimeout(r, ms));
 const lessSleep = (ms = 1000) => new Promise((r) => setTimeout(r, ms));
@@ -49,13 +55,57 @@ async function askName() {
   playerName = name.player_name;
 }
 
-function randomQuestion() {
-  let randomQuestionNumber = Math.floor(Math.random() * 9);
-  return questionList[randomQuestionNumber];
+function randomQuestion(chooseQue: iQuestionList[]) {
+  let randomQuestionNumber = Math.floor(Math.random() * 2);
+  return chooseQue[randomQuestionNumber];
 }
 
-async function question() {
-  const ranQ = randomQuestion();
+async function question_1() {
+  const ranQ = randomQuestion(question1);
+  const { questionMessage, options, ans } = ranQ;
+  const answer = await inquirer.prompt({
+    name: "question_valo",
+    type: "list",
+    message: questionMessage,
+    choices: options,
+  });
+  return handleAnswer(answer.question_valo == ans);
+}
+async function question_2() {
+  const ranQ = randomQuestion(question2);
+  const { questionMessage, options, ans } = ranQ;
+  const answer = await inquirer.prompt({
+    name: "question_valo",
+    type: "list",
+    message: questionMessage,
+    choices: options,
+  });
+  return handleAnswer(answer.question_valo == ans);
+}
+async function question_3() {
+  const ranQ = randomQuestion(question3);
+  const { questionMessage, options, ans } = ranQ;
+  const answer = await inquirer.prompt({
+    name: "question_valo",
+    type: "list",
+    message: questionMessage,
+    choices: options,
+  });
+  return handleAnswer(answer.question_valo == ans);
+}
+async function question_4() {
+  const ranQ = randomQuestion(question4);
+  const { questionMessage, options, ans } = ranQ;
+  const answer = await inquirer.prompt({
+    name: "question_valo",
+    type: "list",
+    message: questionMessage,
+    choices: options,
+  });
+  return handleAnswer(answer.question_valo == ans);
+}
+async function question_5() {
+  const ranQ = randomQuestion(question5);
   const { questionMessage, options, ans } = ranQ;
   const answer = await inquirer.prompt({
     name: "question_valo",
@@ -91,8 +141,14 @@ function winner() {
 
 await welcome();
 await askName();
-for (let i = 0; i <= 5; i++) {
-  await question();
-  await lessSleep();
-}
+await question_1();
+await lessSleep();
+await question_2();
+await lessSleep();
+await question_3();
+await lessSleep();
+await question_4();
+await lessSleep();
+await question_5();
+await lessSleep();
 await winner();
