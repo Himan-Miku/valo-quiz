@@ -17,7 +17,7 @@ const question5 = [questionList[8], questionList[9]];
 const sleep = (ms = 2000) => new Promise((r) => setTimeout(r, ms));
 const lessSleep = (ms = 1000) => new Promise((r) => setTimeout(r, ms));
 async function welcome() {
-    const welcomeTitle = chalkAnimation.rainbow("Test Your Knowledge about Valorant and earn a Spotify Playlist of Valorant Songs \n");
+    const welcomeTitle = chalkAnimation.rainbow("Test Your Knowledge about Valorant and get some Sussy Valorant images \n");
     await sleep();
     welcomeTitle.stop();
     console.log(`

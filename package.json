@@ -1,9 +1,16 @@
 {
-  "name": "cli",
+  "name": "valo-cli-quiz",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Himan-Miku/valo-quiz.git"
+  },
   "version": "1.0.0",
-  "description": "",
+  "description": "A Valorant Quiz game which you can play on CLI, and get meme face images of Valorant Agents.",
   "main": "dist/index.js",
   "type": "module",
+  "files": [
+    "dist"
+  ],
   "scripts": {
     "build": "tsc"
   },
