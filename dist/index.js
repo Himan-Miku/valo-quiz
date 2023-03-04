@@ -6,6 +6,7 @@ import gradient from "gradient-string";
 import inquirer from "inquirer";
 import { createSpinner } from "nanospinner";
 import { questionList } from "./questions.js";
+import { imageCodes } from "./imageCodes.js";
 // console.log(questionList[0].questionMessage);
 let playerName;
 const question1 = [questionList[0], questionList[1]];
@@ -42,6 +43,10 @@ async function askName() {
 function randomQuestion(chooseQue) {
     let randomQuestionNumber = Math.floor(Math.random() * 2);
     return chooseQue[randomQuestionNumber];
+}
+function randomUrl() {
+    const randCode = Math.floor(Math.random() * 10);
+    return imageCodes[randCode];
 }
 async function question_1() {
     const ranQ = randomQuestion(question1);
@@ -105,6 +110,10 @@ async function handleAnswer(isCorrect) {
         spinner.success({
             text: `Nice Job ${playerName} 👍. that's a legit answer!\n`,
         });
+        const iC = randomUrl();
+        console.log("Sus Image : ");
+        console.log(`https://preview.redd.it/${iC.p}.png?width=2048&format=png&auto=webp&v=enabled&s=${iC.s}`);
+        console.log(`\n`);
     }
     else {
         spinner.error({ text: `Game Over ${playerName}, You are a Noob 💀` });
