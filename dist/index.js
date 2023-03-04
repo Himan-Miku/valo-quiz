@@ -68,7 +68,7 @@ function winner() {
     figlet(winnerMsg, (err, data) => {
         console.log(gradient.pastel.multiline(data));
     });
-    console.log("");
+    console.log("\n");
 }
 await welcome();
 await askName();
