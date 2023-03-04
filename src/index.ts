@@ -8,11 +8,12 @@ import inquirer from "inquirer";
 import { createSpinner } from "nanospinner";
 import { questionList } from "./questions.js";
 
-console.log(questionList[0].questionMessage);
+// console.log(questionList[0].questionMessage);
 
 let playerName;
 
 const sleep = (ms = 2000) => new Promise((r) => setTimeout(r, ms));
+const lessSleep = (ms = 1000) => new Promise((r) => setTimeout(r, ms));
 
 async function welcome() {
   const welcomeTitle = chalkAnimation.rainbow(
@@ -48,7 +49,52 @@ async function askName() {
   playerName = name.player_name;
 }
 
-async function question() {}
+function randomQuestion() {
+  let randomQuestionNumber = Math.floor(Math.random() * 9);
+  return questionList[randomQuestionNumber];
+}
+
+async function question() {
+  const ranQ = randomQuestion();
+  const { questionMessage, options, ans } = ranQ;
+  const answer = await inquirer.prompt({
+    name: "question_valo",
+    type: "list",
+    message: questionMessage,
+    choices: options,
+  });
+  return handleAnswer(answer.question_valo == ans);
+}
+
+async function handleAnswer(isCorrect: boolean) {
+  const spinner = createSpinner("Checking answer...").start();
+  await sleep();
+
+  if (isCorrect) {
+    spinner.success({
+      text: `Nice Job ${playerName} 👍. that's a legit answer!\n`,
+    });
+  } else {
+    spinner.error({ text: `Game Over ${playerName}, You are a Noob 💀` });
+    process.exit(1);
+  }
+}
+
+function winner() {
+  console.clear();
+  const winnerMsg = `Well Played ${playerName},\n ggez!`;
+
+  figlet(winnerMsg, (err, data) => {
+    console.log(gradient.pastel.multiline(data));
+  });
+
+  console.log("");
+}
 
 await welcome();
 await askName();
+for (let i = 0; i <= 5; i++) {
+  await question();
+  await lessSleep();
+}
+await winner();
